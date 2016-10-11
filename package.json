@@ -1,0 +1,29 @@
+{
+  "name": "fuseki",
+  "version": "1.0.0",
+  "description": "Fuseki server wrapper and management API",
+  "main": "index.js",
+  "scripts": {
+    "install": "node install.js",
+    "lint": "standard"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bergos/fuseki.git"
+  },
+  "keywords": [],
+  "author": "Thomas Bergwinkl <bergi@axolotlfarm.org> (https://www.bergnet.org/people/bergi/card#me)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bergos/fuseki/issues"
+  },
+  "homepage": "https://github.com/bergos/fuseki",
+  "dependencies": {
+    "form-urlencoded": "^1.4.1",
+    "isomorphic-fetch": "^2.2.1",
+    "shelljs": "^0.7.4"
+  },
+  "devDependencies": {
+    "standard": "^8.4.0"
+  }
+}
