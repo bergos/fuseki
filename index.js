@@ -46,6 +46,32 @@ Server.prototype.alive = function () {
   })
 }
 
+Server.prototype.wait = function (timeout) {
+  var self = this
+
+  timeout = timeout || 10000
+
+  return new Promise(function (resolve, reject) {
+    var next = function () {
+      if (timeout <= 0) {
+        return reject(new Error('timeout'))
+      }
+
+      self.alive().then(function () {
+        resolve()
+      }).catch(function () {
+        setTimeout(function () {
+          timeout -= 500
+
+          next()
+        }, 500)
+      })
+    }
+
+    next()
+  })
+}
+
 Server.prototype.datasets = function () {
   return fetch(url.resolve(this.options.url, '$/datasets')).then(function (res) {
     return res.json()
@@ -60,13 +86,27 @@ Server.prototype.datasets = function () {
   })
 }
 
-Server.prototype.createDataset = function (name, type) {
-  return fetch(url.resolve(this.options.url, '$/datasets'), {
-    method: 'post',
-    headers: {'content-type': 'application/x-www-form-urlencoded'},
-    body: urlencode({
-      dbName: name,
-      dbType: type
+Server.prototype.createDataset = function (name, type, filename, graph) {
+  var self = this
+
+  return this.datasets().then(function (datasets) {
+    if (name in datasets) {
+      return Promise.resolve()
+    }
+
+    return fetch(url.resolve(self.options.url, '$/datasets'), {
+      method: 'post',
+      headers: {'content-type': 'application/x-www-form-urlencoded'},
+      body: urlencode({
+        dbName: name,
+        dbType: type
+      })
+    }).then(function () {
+      if (!filename) {
+        return Promise.resolve()
+      }
+
+      return self.uploadDataset(name, filename, graph)
     })
   })
 }
