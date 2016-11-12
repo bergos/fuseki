@@ -1,6 +1,6 @@
 {
   "name": "fuseki",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Fuseki server wrapper and management API",
   "main": "index.js",
   "scripts": {
