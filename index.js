@@ -13,10 +13,12 @@ function Server (options) {
 
 Server.prototype.start = function () {
   var self = this
+  var productionEnv = Object.create(process.env);
 
   var script = path.join(this.options.home, 'fuseki-server')
 
-  this.process = spawn('bash', [script], {env: {FUSEKI_HOME: this.options.home}})
+  productionEnv.FUSEKI_HOME = this.options.home;
+  this.process = spawn('bash', [script], productionEnv)
 
   if (this.options.pipeOutput) {
     this.process.stdout.pipe(process.stdout)
