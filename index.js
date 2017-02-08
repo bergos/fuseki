@@ -18,7 +18,7 @@ Server.prototype.start = function () {
 
   var environment = clone(process.env)
   environment.FUSEKI_HOME = this.options.home
-  this.process = spawn('bash', [script], environment)
+  this.process = spawn('bash', [script], {env: environment})
 
   if (this.options.pipeOutput) {
     this.process.stdout.pipe(process.stdout)
