@@ -4,6 +4,7 @@ var shelljs = require('shelljs')
 var spawn = require('child_process').spawn
 var url = require('url')
 var urlencode = require('form-urlencoded')
+var clone = require('lodash.clone')
 
 function Server (options) {
   this.options = options || {}
@@ -15,7 +16,7 @@ Server.prototype.start = function () {
   var self = this
   var script = path.join(this.options.home, 'fuseki-server')
 
-  var environment = process.env
+  var environment = clone(process.env)
   environment.FUSEKI_HOME = this.options.home
   this.process = spawn('bash', [script], environment)
 

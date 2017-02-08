@@ -21,6 +21,7 @@
   "dependencies": {
     "form-urlencoded": "^1.4.1",
     "isomorphic-fetch": "^2.2.1",
+    "lodash.clone": "^4.5.0",
     "shelljs": "^0.7.4"
   },
   "devDependencies": {
